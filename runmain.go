@@ -59,6 +59,17 @@ type BaiduResponse struct {
 	ErrorMsg  string `json:"error_msg,omitempty"`
 }
 
+func ConnectMyDatabase() {
+	var err1 error
+	database, err1 = sqlx.Connect("mysql", "root:20041006@tcp(127.0.0.1:3306)/goBack")
+	if err1 != nil {
+		fmt.Println(err1)
+		println("无法正常连接数据库")
+		//这里应该抛出错误
+	}
+	println("连接数据库成功")
+}
+
 // 调用百度千帆大模型
 func askBaiduQianfan(systemPrompt string, messages []map[string]interface{}) (string, error) {
 	// 转换为百度需要的消息格式
